@@ -1,15 +1,16 @@
 import { Component, inject, input, signal, WritableSignal } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { CommonModule, JsonPipe } from '@angular/common';
+import { FireService } from '../../services/fire.service';
 @Component({
   selector: 'app-view-recipe',
   standalone: true,
   imports: [JsonPipe, CommonModule],
-  templateUrl: './view-recipe.component.html',
-  styleUrl: './view-recipe.component.css'
+  templateUrl: './view-recipe-favorite.component.html',
+  styleUrl: './view-recipe-favorite.component.css'
 })
-export class ViewRecipeComponent {
-  apiS = inject(ApiService);
+export class ViewRecipeFavoriteComponent {
+  fire=inject(FireService);
 
   /*
    @Input()
@@ -29,7 +30,7 @@ export class ViewRecipeComponent {
     this.$state.update(state => {
       return { ...state, loading: true }
     });
-    let request = this.apiS.getRecipeById(this.id());
+    let request = this.fire.getRecipesById(this.id());
     request?.subscribe({
       next: (data: any) => {
         this.$state.update(state => {
